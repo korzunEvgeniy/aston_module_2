@@ -2,7 +2,10 @@ package org.example.service;
 
 import org.example.dao.UserDao;
 import org.example.dao.UserDaoImpl;
-import org.example.dao.entity.User;
+import org.example.entity.User;
+
+import java.util.List;
+import java.util.Optional;
 
 public class UserServiceImpl implements UserServise{
 
@@ -13,8 +16,13 @@ public class UserServiceImpl implements UserServise{
     }
 
     @Override
-    public User findById(int id) {
+    public Optional<User> findById(int id) {
         return userDao.findById(id);
+    }
+
+    @Override
+    public List<User> findAll() {
+        return List.of();
     }
 
     @Override
@@ -24,7 +32,7 @@ public class UserServiceImpl implements UserServise{
     }
 
     @Override
-    public void delete(int id) {
-        userDao.delete(id);
+    public void delete(User user) {
+        userDao.delete(user);
     }
 }
