@@ -42,6 +42,18 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
+    public Optional<User> findByEmail(String email) {
+        try {
+            Session session = HibernateUtil.getSessionFactory().openSession();
+            User user = (User) session.get(User.class, email);
+            return Optional.ofNullable(user);
+        } catch (Exception e) {
+            logger.error("Error finding user by email: {}", email, e);
+            return Optional.empty();
+        }
+    }
+
+    @Override
     public List<User> findAll() {
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
@@ -57,7 +69,7 @@ public class UserDaoImpl implements UserDao{
         Transaction transaction = null;
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
-            transaction.begin();
+            transaction = session.beginTransaction();
             session.merge(user);
             transaction.commit();
             logger.info("User updated successfully: {}", user.getName());
@@ -74,7 +86,7 @@ public class UserDaoImpl implements UserDao{
         Transaction transaction = null;
         try {
             Session session = HibernateUtil.getSessionFactory().openSession();
-            transaction.begin();
+            transaction = session.beginTransaction();
             session.delete(user);
             transaction.commit();
             logger.info("User deleted successfully: {}", user.getName());

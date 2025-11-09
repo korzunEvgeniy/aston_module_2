@@ -1,44 +1,27 @@
-package org.example.entity;
-
-import jakarta.persistence.*;
+package org.example.console.model;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-@Entity
-@Table(name = "users")
-public class User {
+public class UserDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @Column(name = "name", nullable = false)
     private String name;
-
-    @Column(name = "email", unique = true, nullable = false)
     private String email;
-
-    @Column(name = "age", nullable = false)
     private int age;
+    private final LocalDateTime createdAt;
 
-    @Column(name = "created_ad", updatable = false)
-    private LocalDateTime createdAt;
-
-
-    public User(int id,
-                String name,
-                String email,
-                int age,
-                LocalDateTime createdAt) {
-        this.id = id;
+    public UserDto(String name,
+                   String email,
+                   int age) {
         this.name = name;
         this.email = email;
         this.age = age;
         this.createdAt = LocalDateTime.now();
     }
 
-    public User() {}
+    public UserDto() {
+        this.createdAt = LocalDateTime.now();
+    }
 
     public String getName() {
         return name;
@@ -69,26 +52,28 @@ public class User {
     }
 
     public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
     }
 
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id && age == user.age && Objects.equals(name, user.name) && Objects.equals(email, user.email) && Objects.equals(createdAt, user.createdAt);
+        UserDto userDto = (UserDto) o;
+        return age == userDto.age
+                && Objects.equals(name, userDto.name)
+                && Objects.equals(email, userDto.email)
+                && Objects.equals(createdAt, userDto.createdAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, age, createdAt);
+        return Objects.hash(name, email, age, createdAt);
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+        return "UserDto{" +
+                "name=" + name +
+                ", email='" + email + '\'' +
                 '}';
     }
 }
