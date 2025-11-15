@@ -1,15 +1,29 @@
-package org.example.dao.entity;
+package org.example.entity;
+
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
 
+@Entity
+@Table(name = "users")
 public class User {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+
+    @Column(name = "name", nullable = false)
     private String name;
+
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
+
+    @Column(name = "age", nullable = false)
     private int age;
-    private LocalDateTime created_at;
+
+    @Column(name = "created_ad", updatable = false)
+    private LocalDateTime createdAt;
 
 
     public User(int id,
@@ -21,14 +35,10 @@ public class User {
         this.name = name;
         this.email = email;
         this.age = age;
-        created_at = LocalDateTime.now();
+        this.createdAt = LocalDateTime.now();
     }
 
     public User() {}
-
-    public int getId() {
-        return id;
-    }
 
     public String getName() {
         return name;
@@ -42,12 +52,8 @@ public class User {
         return age;
     }
 
-    public LocalDateTime getCreated_at() {
-        return created_at;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
     public void setName(String name) {
@@ -62,16 +68,20 @@ public class User {
         this.age = age;
     }
 
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return id == user.id && age == user.age && Objects.equals(name, user.name) && Objects.equals(email, user.email) && Objects.equals(created_at, user.created_at);
+        return id == user.id && age == user.age && Objects.equals(name, user.name) && Objects.equals(email, user.email) && Objects.equals(createdAt, user.createdAt);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, email, age, created_at);
+        return Objects.hash(id, name, email, age, createdAt);
     }
 
     @Override
