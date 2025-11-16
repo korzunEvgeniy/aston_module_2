@@ -14,12 +14,12 @@ public class UserServiceImpl implements UserService {
     private final UserDao userDao = new UserDaoImpl();
     @Override
     public void create(UserDto userDto) {
-        userDao.save(Mapper.mappedToEntity(userDto));
+        userDao.save(Mapper.toEntity(userDto));
     }
 
     @Override
     public UserDto findByEmail(String email) {
-        return Mapper.mappedToDto(userDao.findByEmail(email)
+        return Mapper.toDto(userDao.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User with email:" + email + " not found")));
     }
 
@@ -27,14 +27,14 @@ public class UserServiceImpl implements UserService {
     public List<UserDto> findAll() {
         List<UserDto> users = new ArrayList<>();
         for (User user : userDao.findAll()) {
-            users.add(Mapper.mappedToDto(user));
+            users.add(Mapper.toDto(user));
         }
         return users;
     }
 
     @Override
     public void update(UserDto userDto) {
-        userDao.update(Mapper.mappedToEntity(userDto));
+        userDao.update(Mapper.toEntity(userDto));
 
     }
 

@@ -6,6 +6,7 @@ import org.example.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class ConsoleApplication {
@@ -66,13 +67,13 @@ public class ConsoleApplication {
     }
 
     private static void findAllUsers() {
-        if (userService.findAll().isEmpty()) {
+        List<UserDto> users = userService.findAll();
+        if (users.isEmpty()) {
             System.out.println("List of users is empty");
             logger.debug("List of users is empty");
         } else {
-            System.out.println(userService.findAll());
+            System.out.println(users);
             logger.debug("List of users got");
-
         }
     }
 
@@ -85,15 +86,22 @@ public class ConsoleApplication {
         if (userService.findByEmail(email) != null) {
             System.out.println("Input new name or skip: ");
             String name = scanner.nextLine();
-            if (!name.isEmpty()) updatedUser.setName(name);
+            if (!name.isEmpty()) {
+                updatedUser.setName(name);
+            }
 
             System.out.println("Input new email or skip: ");
             String emailNew = scanner.nextLine();
-            if (email != emailNew) updatedUser.setEmail(emailNew);
+            if (email != emailNew) {
+                updatedUser.setEmail(emailNew);
+            }
 
             System.out.println("Input new age or skip: ");
             String ageNew = scanner.nextLine();
-            if (!ageNew.isEmpty()) updatedUser.setAge(Integer.parseInt(ageNew));
+            if (!ageNew.isEmpty()) {
+                updatedUser.setAge(Integer.parseInt(ageNew));
+            }
+            userService.update(updatedUser);
 
             System.out.println("User updated successfully!");
             logger.debug("User with email {} updated", email);

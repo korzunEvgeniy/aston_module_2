@@ -40,6 +40,10 @@ public class User {
 
     public User() {}
 
+    public int getId() {
+        return id;
+    }
+
     public String getName() {
         return name;
     }
@@ -54,6 +58,10 @@ public class User {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setName(String name) {
