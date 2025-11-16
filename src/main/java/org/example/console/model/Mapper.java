@@ -4,7 +4,7 @@ import org.example.entity.User;
 
 public class Mapper {
 
-    public static User mappedToEntity(UserDto userDto) {
+    public static User toEntity(UserDto userDto) {
 
         User entity = new User();
         entity.setName(userDto.getName());
@@ -14,7 +14,7 @@ public class Mapper {
         return entity;
     }
 
-    public static UserDto mappedToDto(User entity) {
+    public static UserDto toDto(User entity) {
         UserDto userDto = new UserDto();
         userDto.setName(entity.getName());
         userDto.setEmail(entity.getEmail());
