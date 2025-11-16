@@ -40,7 +40,7 @@ public class User {
 
     public User() {}
 
-    public int id() {
+    public int getId() {
         return id;
     }
 

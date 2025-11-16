@@ -12,7 +12,6 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     private final UserDao userDao = new UserDaoImpl();
-
     @Override
     public void create(UserDto userDto) {
         userDao.save(Mapper.toEntity(userDto));
